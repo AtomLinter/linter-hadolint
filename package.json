@@ -5,7 +5,8 @@
   "private": true,
   "main": "./lib/main.js",
   "scripts": {
-    "test": "apm test"
+    "test": "apm test",
+    "lint": "eslint ."
   },
   "repository": "https://github.com/lucasdf/linter-hadolint.git",
   "keywords": [
@@ -14,5 +15,31 @@
     "linter",
     "hadolint"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-plugin-import": "^2.7.0"
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "rules": {
+      "global-require": "off",
+      "import/no-unresolved": [
+        "error",
+        {
+          "ignore": [
+            "atom"
+          ]
+        }
+      ]
+    },
+    "globals": {
+      "atom": true
+    },
+    "env": {
+      "node": true,
+      "browser": true
+    }
+  }
 }
