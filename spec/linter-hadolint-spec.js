@@ -15,14 +15,7 @@ describe('The hadolint provider for Linter', () => {
   const lint = require('../lib/main').provideLinter().lint;
 
   beforeEach(async () => {
-    // Info about this beforeEach() implementation:
-    // https://github.com/AtomLinter/Meta/issues/15
-    const activationPromise = atom.packages.activatePackage('linter-hadolint');
-
-    // await atom.packages.activatePackage('language-python');
-
-    atom.packages.triggerDeferredActivationHooks();
-    await activationPromise;
+    await atom.packages.activatePackage('linter-hadolint');
   });
 
   it('should be in the packages list', () =>
@@ -52,6 +45,7 @@ describe('The hadolint provider for Linter', () => {
 
     expect(messages[0].severity).toBe('error');
     expect(messages[0].excerpt).toBe(expected);
+    expect(messages[0].url).toBe('https://github.com/lukasmartinelli/hadolint/wiki/DL4003');
     expect(messages[0].location.file).toBe(badPath1);
     expect(messages[0].location.position).toEqual([[0, 0], [0, 17]]);
     expect(messages.length).toBe(1);
@@ -64,6 +58,7 @@ describe('The hadolint provider for Linter', () => {
 
     expect(messages[0].severity).toBe('error');
     expect(messages[0].excerpt).toBe(expected);
+    expect(messages[0].url).toBe('https://github.com/lukasmartinelli/hadolint/wiki/DL3009');
     expect(messages[0].location.file).toBe(badPath2);
     expect(messages[0].location.position).toEqual([[1, 0], [1, 18]]);
     expect(messages.length).toBe(1);
@@ -77,18 +72,19 @@ describe('The hadolint provider for Linter', () => {
 
     expect(messages[0].severity).toBe('error');
     expect(messages[0].excerpt).toBe(expected1);
+    expect(messages[0].url).toBe('https://github.com/lukasmartinelli/hadolint/wiki/DL3006');
     expect(messages[0].location.file).toBe(badPath3);
     expect(messages[0].location.position).toEqual([[0, 0], [0, 11]]);
 
     expect(messages[1].severity).toBe('error');
     expect(messages[1].excerpt).toBe(expected2);
+    expect(messages[1].url).toBe('https://github.com/lukasmartinelli/hadolint/wiki/DL3009');
     expect(messages[1].location.file).toBe(badPath3);
     expect(messages[1].location.position).toEqual([[1, 0], [1, 18]]);
     expect(messages.length).toBe(2);
   });
 
   it('respects the configuration showRuleIdInMessage', async () => {
-    const originalRule = atom.config.get('linter-hadolint.showRuleIdInMessage');
     atom.config.set('linter-hadolint.showRuleIdInMessage', false);
 
     const editor = await atom.workspace.open(badPath1);
@@ -97,14 +93,13 @@ describe('The hadolint provider for Linter', () => {
 
     expect(messages[0].severity).toBe('error');
     expect(messages[0].excerpt).toBe(expected);
+    expect(messages[0].url).toBe('https://github.com/lukasmartinelli/hadolint/wiki/DL4003');
     expect(messages[0].location.file).toBe(badPath1);
     expect(messages[0].location.position).toEqual([[0, 0], [0, 17]]);
     expect(messages.length).toBe(1);
-    atom.config.set('linter-hadolint.showRuleIdInMessage', originalRule);
   });
 
   it('ignores specified rules', async () => {
-    const originalRule = atom.config.get('linter-hadolint.ignoreErrorCodes');
     atom.config.set('linter-hadolint.ignoreErrorCodes', ['DL3006']);
 
     const editor = await atom.workspace.open(badPath3);
@@ -113,11 +108,10 @@ describe('The hadolint provider for Linter', () => {
 
     expect(messages[0].severity).toBe('error');
     expect(messages[0].excerpt).toBe(expected);
+    expect(messages[0].url).toBe('https://github.com/lukasmartinelli/hadolint/wiki/DL3009');
     expect(messages[0].location.file).toBe(badPath3);
     expect(messages[0].location.position).toEqual([[1, 0], [1, 18]]);
     expect(messages.length).toBe(1);
-
-    atom.config.set('linter-hadolint.ignoreErrorCodes', originalRule);
   });
 
   describe('executable path', () => {
