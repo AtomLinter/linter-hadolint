@@ -1,6 +1,6 @@
 # linter-hadolint
 
-[![Build Status](https://travis-ci.org/AtomLinter/linter-hadolint.svg)](https://travis-ci.org/AtomLinter/linter-hadolint)
+[![Build Status](https://circleci.com/gh/AtomLinter/linter-hadolint.svg?style=shield)](https://circleci.com/gh/AtomLinter/linter-hadolint.svg?style=shield)
 [![Dependency Status](https://david-dm.org/AtomLinter/linter-hadolint.svg)](https://david-dm.org/AtomLinter/linter-hadolint)
 
 
