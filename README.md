@@ -1,7 +1,7 @@
 # linter-hadolint
 
 [![Build Status](https://circleci.com/gh/AtomLinter/linter-hadolint.svg?style=shield)](https://circleci.com/gh/AtomLinter/linter-hadolint.svg?style=shield)
-[![Dependency Status](https://david-dm.org/AtomLinter/linter-hadolint.svg)](https://david-dm.org/AtomLinter/linter-hadolint)
+[![Dependency Status](https://david-dm.org/AtomLinter/linter-hadolint.svg)](https://david-dm.org/AtomLinter/linter-hadolint) [![Greenkeeper badge](https://badges.greenkeeper.io/AtomLinter/linter-hadolint.svg)](https://greenkeeper.io/)
 
 
 This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides
