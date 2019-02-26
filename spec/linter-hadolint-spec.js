@@ -1,7 +1,9 @@
 'use babel';
 
-// eslint-disable-next-line no-unused-vars
-import { it, fit, wait, beforeEach, afterEach } from 'jasmine-fix';
+import {
+  // eslint-disable-next-line no-unused-vars
+  it, fit, wait, beforeEach, afterEach,
+} from 'jasmine-fix';
 import * as path from 'path';
 
 const fixturesDir = path.join(__dirname, 'fixtures');
@@ -12,19 +14,19 @@ const badPath2 = path.join(fixturesDir, 'bad2', 'Dockerfile');
 const badPath3 = path.join(fixturesDir, 'bad3', 'Dockerfile');
 
 describe('The hadolint provider for Linter', () => {
-  const lint = require('../lib/main').provideLinter().lint;
+  const { lint } = require('../lib/main').provideLinter();
 
   beforeEach(async () => {
     await atom.packages.activatePackage('linter-hadolint');
   });
 
-  it('should be in the packages list', () =>
-    expect(atom.packages.isPackageLoaded('linter-hadolint')).toBe(true),
-  );
+  it('should be in the packages list', () => {
+    expect(atom.packages.isPackageLoaded('linter-hadolint')).toBe(true);
+  });
 
-  it('should be an active package', () =>
-    expect(atom.packages.isPackageActive('linter-hadolint')).toBe(true),
-  );
+  it('should be an active package', () => {
+    expect(atom.packages.isPackageActive('linter-hadolint')).toBe(true);
+  });
 
   it('finds nothing wrong with a valid file', async () => {
     const editor = await atom.workspace.open(goodPath);
@@ -168,7 +170,8 @@ describe('The hadolint provider for Linter', () => {
     });
 
     it('normalizes executable path', async () => {
-      atom.config.set('linter-hadolint.executablePath',
+      atom.config.set(
+        'linter-hadolint.executablePath',
         path.join(fixturesDir, '..', 'fixtures', 'hadolint'),
       );
       await lint(editor);
@@ -178,7 +181,8 @@ describe('The hadolint provider for Linter', () => {
     it('finds backup executable', async () => {
       const hadolintNotFound = path.join('$PROJECT', 'hadolint_notfound');
       const hadolintBackup = path.join(fixturesDir, 'hadolint_backup');
-      atom.config.set('linter-hadolint.executablePath',
+      atom.config.set(
+        'linter-hadolint.executablePath',
         `${hadolintNotFound};${hadolintBackup}`,
       );
       await lint(editor);
