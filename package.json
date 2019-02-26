@@ -62,6 +62,24 @@
       }
     }
   },
+  "renovate": {
+    "extends": [
+      "config:base"
+    ],
+    "ignorePaths": [
+      "spec/fixtures/**"
+    ],
+    "semanticCommits": true,
+    "rangeStrategy": "pin",
+    "packageRules": [
+      {
+        "packagePatterns": [
+          "^eslint"
+        ],
+        "groupName": "ESLint packages"
+      }
+    ]
+  },
   "eslintConfig": {
     "extends": "airbnb-base",
     "rules": {
