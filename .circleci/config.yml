@@ -11,9 +11,6 @@ defaults: &defaults
     # Restore Hadolint
     - restore_cache:
         keys:
-        # Get latest cache for the current specs
-        - v1-hadolint-{{ arch }}-{{ checksum "/home/atom/.local/bin/hadolint" }}
-        # Fallback to the last available cache
         - v1-hadolint-{{ arch }}
     - run:
         name: Install Haskell
