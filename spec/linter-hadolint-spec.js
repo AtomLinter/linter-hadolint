@@ -40,14 +40,15 @@ describe('The hadolint provider for Linter', () => {
 
   it('shows file level error in an a file with issues', async () => {
     const editor = await atom.workspace.open(badPath1);
-    const expected = 'Multiple `CMD` instructions found. Only the first instruction will take effect. (DL4003)';
+    const expected = 'Multiple `CMD` instructions found. '
+      + 'If you list more than one `CMD` then only the last `CMD` will take effect (DL4003)';
     const messages = await lint(editor);
 
     expect(messages[0].severity).toBe('error');
     expect(messages[0].excerpt).toBe(expected);
     expect(messages[0].url).toBe('https://github.com/lukasmartinelli/hadolint/wiki/DL4003');
     expect(messages[0].location.file).toBe(badPath1);
-    expect(messages[0].location.position).toEqual([[0, 0], [0, 17]]);
+    expect(messages[0].location.position).toEqual([[2, 0], [2, 10]]);
     expect(messages.length).toBe(1);
   });
 
@@ -66,7 +67,7 @@ describe('The hadolint provider for Linter', () => {
 
   it('shows multiple errors in an a file with many issues', async () => {
     const editor = await atom.workspace.open(badPath3);
-    const expected1 = 'Always tag the version of an image explicitly. (DL3006)';
+    const expected1 = 'Always tag the version of an image explicitly (DL3006)';
     const expected2 = 'Delete the apt-get lists after installing something (DL3009)';
     const messages = await lint(editor);
 
@@ -88,14 +89,15 @@ describe('The hadolint provider for Linter', () => {
     atom.config.set('linter-hadolint.showRuleIdInMessage', false);
 
     const editor = await atom.workspace.open(badPath1);
-    const expected = 'Multiple `CMD` instructions found. Only the first instruction will take effect.';
+    const expected = 'Multiple `CMD` instructions found. '
+      + 'If you list more than one `CMD` then only the last `CMD` will take effect';
     const messages = await lint(editor);
 
     expect(messages[0].severity).toBe('error');
     expect(messages[0].excerpt).toBe(expected);
     expect(messages[0].url).toBe('https://github.com/lukasmartinelli/hadolint/wiki/DL4003');
     expect(messages[0].location.file).toBe(badPath1);
-    expect(messages[0].location.position).toEqual([[0, 0], [0, 17]]);
+    expect(messages[0].location.position).toEqual([[2, 0], [2, 10]]);
     expect(messages.length).toBe(1);
   });
 
